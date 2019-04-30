@@ -1,0 +1,95 @@
+.top{
+	background: #00135d;
+	height: 35px;
+}
+.quick-call{
+	color: whitesmoke;
+	text-align: left;
+	font-size: 18px;
+	display: inline-block;
+	margin-top: 0px;
+}
+.quick-email{
+	color: whitesmoke;
+	float: right;
+	font-size: 18px;
+	display: inline-block;
+	margin-top: 0px;
+}
+.actions{
+	padding: 30px;
+}
+.toplink
+{
+	list-style: none;
+}
+body{
+	background: whitesmoke;
+}
+.head{
+	padding-top: 20px;
+}
+.search
+{
+	height: 40px;
+	border-radius: 20px;
+	width: 300px;
+}
+.searchbtn{
+	background: #00135d;
+	color: whitesmoke;
+	border-radius: 20px;
+	height: 40px;
+
+}
+.navbar{
+	background-color: #00135d;
+	height: 40px;
+	padding-top: 0px;
+}
+.navbar1{
+	background-color: orange;
+	height: 50px;
+	padding-top: 0px;
+}
+.nav_items{
+	list-style: none;
+	display: inline-block;
+	text-align: center;
+	border-right: 1px solid whitesmoke;
+	padding-top: 10px;
+}
+.nav_ul{
+	list-style: none;
+}
+.nav_a{
+	text-align: center;
+	color: whitesmoke;
+	padding: 0px 0px;
+}.navigation
+{
+	padding-top: 0px;
+}
+.title-header
+{
+	background-color: #00135d;
+	height: 40px;
+	border-left: 5px solid #ffab1f;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: normal;
+	line-height: 1.5;
+	padding: 5px 15px;
+	position: relative;
+}
+li
+{
+	list-style: none
+}
+.footer{
+	background: #00135d;
+	height: 40px;
+}
+.more{
+	visibility: collapse;
+}

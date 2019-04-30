@@ -1,0 +1,23 @@
+create table messages(
+    Thread_id INT,
+    chat_id INT NOT NULL AUTO_INCREMENT,
+    message text,
+    Timestamp_date text,
+    Timestamp_time text,
+    PRIMARY KEY(chat_id)
+)
+create table Threads(
+    Thread_id INT NOT NULL AUTO_INCREMENT,
+    Sender varchar(8),
+    Receiver varchar(8),
+    PRIMARY KEY(Thread_id)
+)
+Create table notifications(
+    notification_id INT NOT NULL AUTO_INCREMENT
+    Audience varchar(100)
+    Sender varchar(8)
+    notification text
+    Timestamp_date text
+    Timestamp_timem text
+    PRIMARY KEY(notification_id)
+)
