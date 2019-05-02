@@ -158,7 +158,7 @@ function Sidebar($role)
             "<li>"."<a class='treeview-item' href='students.php'>"."<i class='icon fa fa-circle-o'>"."</i>"."Students"."</a>"."</li>".
             "<li>"."<a class='treeview-item' href='lectures.php''>"."<i class='icon fa fa-circle-o'>"."</i>"."Staff"."</a>"."</li>".
             "<li>"."<a class='treeview-item' href='marks.php''>"."<i class='icon fa fa-circle-o'>"."</i>"."Marks"."</a>"."</li>".
-            "<li>"."<a class='treeview-item' href='#''>"."<i class='icon fa fa-circle-o'>"."</i>"."Weights"."</a>"."</li>".
+            "<li>"."<a class='treeview-item' href='view_weights.php''>"."<i class='icon fa fa-circle-o'>"."</i>"."Weights"."</a>"."</li>".
           "</ul>".
         "</li>".
         "<li class='treeview'><a class='app-menu__item' href='#' data-toggle='treeview'>"."<i class='app-menu__icon fa fa-file-text'>"."</i>"."<span class='app-menu__label'>"."More"."</span>"."<i class='treeview-indicator fa fa-angle-right'>"."</i>"."</a>".
@@ -306,7 +306,6 @@ function assessment_details($Department)
         {
           $id = $row['Assessment_id'];
          echo "<tr>".
-                "<form method = 'POST' action= '#'>".
                 "<td>".$row['Assessment_title']."</td>".
                 "<td>".$row['Level']."</td>".
                 "<td>".$row['Year']."</td>".
@@ -314,9 +313,8 @@ function assessment_details($Department)
                 "<td>".$row['Proposed_date']."</td>".
                 "<td>".$row['Status']."</td>";
                 items($row['Assessment_id']);
-        echo    "<td>".
-                      "<button type='submit' class='btn btn-primary'>"."Edit"."</button>".
-                      "</td>"."</form>".
+                
+         echo  "<td>"."Click to edit"."</td>".  
               "</tr>";
         }
             echo "</tbody>".

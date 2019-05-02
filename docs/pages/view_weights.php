@@ -107,105 +107,101 @@ require '../php/Php.php';
           <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
         </ul>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="tile">
-            <div class="tile-body">
-            <form method= "POST" action= "weights.php">
-            
-                <center>
-                    <h1>Assessment Weights</h1>
-                    <p>Please select assessment type</p>
 
-                    <div class="col-md-4">
-                        <select name="assessment" class= "form-control">
-                          <option value = "hit200">HIT 200</option>
-                          <option value = "hit400">HIT 400</option>
-                        </select>
-                    </div>
-                   <br><br>
+      <?php
+      require '../dbh/dbh.php';
+      $Department = $_SESSION['Department'];
 
-                    <button type= "submit" class = "btn btn-info btn-lg">Load</button>
-              </form>
-              <p style="color: red; font: 36px;"><b><?php if (!empty($_SESSION['message'])) {
-              echo $_SESSION['message'];
-            }else{ echo " ";} ?></p></b>
-                </center>
-            </div>
-          </div>
-        </div>      
-      </div>
-      <?php student_modal(); ?>
-      <?php 
+      $sql = "SELECT Assessment_id, Weight FROM weights WHERE Department = '$Department'";
+      $result = mysqli_query($Conn,$sql);
+      $confirm = mysqli_num_rows($result);
 
-      if(isset($_POST['assessment']))
+      if($confirm > 0)
       {
-        $type = $_POST['assessment'];
-        $Department = $_SESSION['Department'];
-
-
-        $sql = "SELECT Assessment_id, Assessment_title,Level,assement_date FROM assessment_details WHERE level = '$type' AND Department = '$Department'";
-        $result = mysqli_query($Conn,$sql);
-        $confirm = mysqli_num_rows($result);
-
-        if($confirm  > 0)
-        {
-          echo "<div class= 'row'>".
-                  "<div class='col-md-12'>".
-                    "<div class='tile'>".
-                      "<div class='tile-body'>".
-                      "<center>".
-                      "<h3>".$type."&nbsp&nbspAssessment Weights"."</h3>".
-                      "</center>";
-                        echo "<form method = 'POST' action = '../php/addweight.php' onsubmit = 'return weights()'>".
-                          "<div class='row'>".
-                            "<div class='col-md-12'>".
-                              "<div class='responsive-table'>".
-                                "<table class= 'table'>".
-                                  "<thead>".
+          echo "<div class='row'>".
+             "<div class='col-md-12'>".
+                "<div class='tile'>".
+                    "<div class='tile-body'>".
+                        "<div class='reponsive-table'>".
+                            "<table class='table table-hover table-bordered' id='sampleTable'>".
+                                "<thead>".
                                     "<tr>".
-                                      "<th>"."Assessment title"."</th>".
-                                      "<th>"."Assessment Date"."</th>".
-                                      "<th>"."Level"."</th>".
-                                      "<th>"."Weight"."</th>".
+                                        "<th>"."Assessment"."</th>".
+                                        "<th>"."Level"."</th>".
+                                        "<th>"."Year"."</th>".
+                                        "<th>"."Status"."</th>".
+                                        "<th>"."Weight"."</th>".               
                                     "</tr>".
-                                  "</thead>".
-                                  "<tbody>";
-                      $i = 0;   
-                      while($row = mysqli_fetch_assoc($result))
-                      {
-                        $id = $row['Assessment_id'];
-                        $name = "weight".$i;
-                        $weight = "mark".$i;
-                        echo "<input type ='hidden' name = '$name' value = '$id'>";
-                        echo "<tr>".
-                                "<td>".$row['Assessment_title']."</td>".
-                                "<td>".$row['assement_date']."</td>".
-                                "<td>".$row['Level']."</td>". 
-                                "<td>"."<input type = 'number' class = 'form-control' min= '0' max = '99' name = '$weight' id= $i required = ''>"."</td>".
-                        "</tr>";
-                        $i = $i + 1;
-                      }
-                      echo "</tbody>".
+                                "</thead>".
+                                "<tbody>";
+                                while($row = mysqli_fetch_assoc($result))
+                                {
+                                    $Assessment_id = $row['Assessment_id'];
+                                    $Weight = $row['Weight'];
+
+                                    $sql1 = "SELECT Assessment_title,Level,Year,Status FROM assessment_details WHERE Assessment_id = '$Assessment_id'";
+                                    $result1 = mysqli_query($Conn,$sql1);
+                                    $confirm1 = mysqli_num_rows($result1);
+
+                                    if($confirm1 > 0 )
+                                    {
+
+                                        while($row1 = mysqli_fetch_assoc($result1))
+                                        {
+                                            echo "<tr>".
+                                            "<td>".$row1['Assessment_title']."</td>".
+                                            "<td>".$row1['Level']."</td>".
+                                            "<td>".$row1['Year']."</td>".
+                                            "<td>".$row1['Status']."</td>".
+                                            "<td>".$Weight."</td>".
+                                            "</tr>";
+                                        }
+                                       
+                                    }
+                                }
+                               echo "</tbody>".
                             "</table>".
-                                "</div>".
-                                "<center>".
-                                  "<button type = 'submit' class = 'btn btn-info'>"."Save Changes"."</button>".
-                                "</center>"."</div>".
-                                "</div>".
-                              "</div>".
-                            "</div>".
-                          "</div>".
-                      "</div>"."</form>";
-        }
-      else{
-       echo "<center>"."<h1>"."No assessments founds"."</h1>"."</center>";
-      }
+                        "</div>".
+                    "</div>".
+                "</div>".
+             "</div>".
+         "</div>";
+
       }
 
+      ?>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="tile">
+                    <div class="tile-body">
+                        <center>
+                            <h2>Select Assessment Type</h2>
+                            <br>
+                           <form action = '../php/finalsummary.php' method = 'POST'>
+                            <div class="row">
+                                <div class="col-md-4">
 
+                                </div>
+                                <div class="col-md-4">
+                                    <select name = 'type' class= form-control>
+                                        <option>Hit 200</option>
+                                        <option>Hit 400</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
 
-        ?>
+                                </div>
+                            </div>
+                            <br><br>
+                            <button class = "btn btn-info btn-lg" type = 'submit'>Request Summary</button>
+
+                        </form>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <?php student_modal(); ?>
         </div>
       </div>
     </main>
@@ -213,7 +209,6 @@ require '../php/Php.php';
     <script src="../js/jquery-3.2.1.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-
     <script src="../js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="../js/plugins/pace.min.js"></script>

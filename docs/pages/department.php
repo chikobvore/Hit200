@@ -110,7 +110,7 @@ require '../php/Php.php';
         </ul>
       </div>
       <center>
-      <p style="color: red; font: 36px;"><b><?php if (!empty($_SESSION['message'])) {
+      <p style="color: green; font: 36px;"><b><?php if (!empty($_SESSION['message'])) {
               echo $_SESSION['message'];
             }else{ echo " ";} ?></center></p></b>
       <div class="row">
