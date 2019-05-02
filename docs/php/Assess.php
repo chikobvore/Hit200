@@ -29,7 +29,8 @@ if(isset($_POST['Project_id']) && isset($_POST['Stage']) &&isset($_POST['comment
    		if ($confirm >0 )
    		{	
    			$_SESSION['message'] = 'Sorry already assessed that project';
-   			header('location: ../pages/Assessment.php');
+			   header('location: ../pages/Assessment.php');
+			   break;
    		}
    		else{
    			$sql = "INSERT INTO assessment_marks (

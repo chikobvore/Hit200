@@ -139,7 +139,7 @@ function Sidebar($role)
 
           "<ul class='treeview-menu'>".
             "<li>"."<a class='treeview-item' href='addsupervisor.php' >"."<i class='icon fa fa-users'>"."</i>"."Supervisor"."</a>"."</li>".
-            "<li>"."<a class='treeview-item' href='addsupervisor.php' >"."<i class='icon fa fa-users'>"."</i>"."Group"."</a>"."</li>".
+            "<li>"."<a class='treeview-item' href='weights.php' >"."<i class='icon fa fa-users'>"."</i>"."Assesment weight"."</a>"."</li>".
             "<li>"."<a class='treeview-item' href='#myModal5' data-toggle='modal'>"."<i class='icon fa fa-user'>"."</i>"."Assessment"."</a>"."</li>".
           "</ul>".
         "</li>".
@@ -158,6 +158,7 @@ function Sidebar($role)
             "<li>"."<a class='treeview-item' href='students.php'>"."<i class='icon fa fa-circle-o'>"."</i>"."Students"."</a>"."</li>".
             "<li>"."<a class='treeview-item' href='lectures.php''>"."<i class='icon fa fa-circle-o'>"."</i>"."Staff"."</a>"."</li>".
             "<li>"."<a class='treeview-item' href='marks.php''>"."<i class='icon fa fa-circle-o'>"."</i>"."Marks"."</a>"."</li>".
+            "<li>"."<a class='treeview-item' href='#''>"."<i class='icon fa fa-circle-o'>"."</i>"."Weights"."</a>"."</li>".
           "</ul>".
         "</li>".
         "<li class='treeview'><a class='app-menu__item' href='#' data-toggle='treeview'>"."<i class='app-menu__icon fa fa-file-text'>"."</i>"."<span class='app-menu__label'>"."More"."</span>"."<i class='treeview-indicator fa fa-angle-right'>"."</i>"."</a>".
@@ -314,7 +315,7 @@ function assessment_details($Department)
                 "<td>".$row['Status']."</td>";
                 items($row['Assessment_id']);
         echo    "<td>".
-                      "<button type='submit' class='btn btn-primary'>"."Assessed"."</button>".
+                      "<button type='submit' class='btn btn-primary'>"."Edit"."</button>".
                       "</td>"."</form>".
               "</tr>";
         }
@@ -597,6 +598,7 @@ function average($Staff_id,$stage,$Project_id,$comment)
       $Mark_id = $Staff_id.'lock'.$p_id.'id'.$A_id;
 
       //Finally putting all the results in the lecturer assessment table14
+      $Lock = $Staff_id.$p_id.$A_id;
       $sql = "INSERT INTO lecturer_assessment_marks
                   (
                     Staff_id,
@@ -606,7 +608,8 @@ function average($Staff_id,$stage,$Project_id,$comment)
                     Mark,
                     Total_mark,
                     Overal_mark,
-                    comment
+                    comment,
+                    Lock_key
                   ) VALUES (
                             '$Staff_id',
                             '$p_id',
@@ -615,7 +618,8 @@ function average($Staff_id,$stage,$Project_id,$comment)
                              '$AVG', 
                              $SUM,
                              $Total,
-                             '$comment')";
+                             '$comment',
+                             '$Lock')";
       if ($Conn->query($sql) === TRUE)
       {
         mark_total($p_id,$A_id,$SUM,$Total);
@@ -677,7 +681,7 @@ function mark_total($Project_id,$Assessment_id,$SUM,$Total)
                                                 )";
                 if ($Conn->query($sql) === TRUE)
                     {
-                        header('location: ../pages/assessment_projects.php');
+                        header('location: ../pages/Assessment.php');
                      }else{                           
                             $sql = "UPDATE final_stage_mark  SET 
                                                             Overal_mark = $avg ,
@@ -726,30 +730,6 @@ function summary($Department)
           "</thead>"."<tbody>";
               while ($row = mysqli_fetch_assoc($result))
                 {
-                  if ($row['Status'] == 'Assessed') {
-
-                     echo "<tr>".
-                        "<td>".$row['Assessment_title']."</td>".
-                        "<td>".$row['Level']."</td>".
-                        "<td>".$row['Status']."</td>".
-                        "<td>"."<div class='toggle-flip'>".
-                         "<label>".
-                          "Assessed".
-                          "</label>".
-                          "</div>"."</td>"."</tr>";
-                  }
-                  elseif ($row['Status'] == 'current'){
-                    $value = $row['Assessment_lockkey'];
-                   echo "<tr>".
-                        "<td>".$row['Assessment_title']."</td>".
-                        "<td>".$row['Level']."</td>".
-                        "<td>".$row['Status']."</td>".
-                        "<td>"."<div class='toggle-flip'>".
-                         "<label>".
-                          "current".
-                          "</label>".
-                          "</div>"."</td>"."</tr>";
-                }else{
                   $value = $row['Assessment_id'];
                    echo "<tr>".
                         "<td>".$row['Assessment_title']."</td>".
@@ -760,7 +740,7 @@ function summary($Department)
                           "<input type='radio' name='assess' value = $value>".
                           "</label>".
                           "</div>"."</td>"."</tr>";
-                }
+                
               }
                 echo "</table>".
                     "<center>".
@@ -796,15 +776,31 @@ function stages($Department)
               while ($row = mysqli_fetch_assoc($result))
                 {
                   $value = $row['Assessment_id'];
-                   echo "<tr>".
-                        "<td>".$row['Assessment_title']."</td>".
-                        "<td>".$row['Level']."</td>".
-                        "<td>".$row['Status']."</td>".
-                        "<td>"."<div class='toggle-flip'>".
-                         "<label>".
-                          "<input type='radio' name='assess' value = $value>".
-                          "</label>".
-                          "</div>"."</td>"."</tr>";
+                  $Status = $row['Status'];
+
+                  if($Status == 'Assessed')
+                  {
+                    echo "<tr>".
+                    "<td>".$row['Assessment_title']."</td>".
+                    "<td>".$row['Level']."</td>".
+                    "<td>".$row['Status']."</td>".
+                    "<td>"."<div class='toggle-flip'>".
+                     "<label>".
+                      "Assessed".
+                      "</label>".
+                      "</div>"."</td>"."</tr>";
+                  }else{
+                    echo "<tr>".
+                    "<td>".$row['Assessment_title']."</td>".
+                    "<td>".$row['Level']."</td>".
+                    "<td>".$row['Status']."</td>".
+                    "<td>"."<div class='toggle-flip'>".
+                     "<label>".
+                      "<input type='radio' name='assess' value = $value>".
+                      "</label>".
+                      "</div>"."</td>"."</tr>";
+                  }
+                  
                 
               }
                 echo "</table>".

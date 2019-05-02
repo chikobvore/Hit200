@@ -17,6 +17,33 @@ require '../php/Php.php';
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="../css/font-awesome.min.css">
+    <script>
+    function weights(){
+      var i = 0;
+      var num = document.getElementById(i).value;
+
+      while(num != null)
+      {
+        var num = document.getElementById(i).value;
+        alert(num);
+        i = i + 1;
+      }
+      else{
+        alert("Pakaipa");
+      }
+
+      // alert("Helo world");
+
+      // var i = 0;
+
+      // while(i !== null){
+      //    var num = document.getElementById(i).value;
+      //    aler(num);
+      // }
+
+      return false;
+    }
+    </script>
   </head>
   <body class="app sidebar-mini rtl">
     <!-- Navbar-->
@@ -141,7 +168,7 @@ require '../php/Php.php';
         $Department = $_SESSION['Department'];
 
 
-        $sql = "SELECT Assessment_id, Assessment_title,Level,assement_date FROM assessment_details WHERE status = 'Current' AND level = '$type' AND Department = '$Department'";
+        $sql = "SELECT Assessment_id, Assessment_title,Level,assement_date FROM assessment_details WHERE level = '$type' AND Department = '$Department'";
         $result = mysqli_query($Conn,$sql);
         $confirm = mysqli_num_rows($result);
 
@@ -154,7 +181,7 @@ require '../php/Php.php';
                       "<center>".
                       "<h3>".$type."&nbsp&nbspAssessment Weights"."</h3>".
                       "</center>";
-                        echo "<form method = 'POST' action = '../php/action.php'>".
+                        echo "<form method = 'POST' action = '../php/addweight.php' onsubmit = 'return weights()'>".
                           "<div class='row'>".
                             "<div class='col-md-12'>".
                               "<div class='responsive-table'>".
@@ -168,15 +195,20 @@ require '../php/Php.php';
                                     "</tr>".
                                   "</thead>".
                                   "<tbody>";
-                              
+                      $i = 0;   
                       while($row = mysqli_fetch_assoc($result))
                       {
+                        $id = $row['Assessment_id'];
+                        $name = "weight".$i;
+                        $weight = "mark".$i;
+                        echo "<input type ='hidden' name = '$name' value = '$id'>";
                         echo "<tr>".
                                 "<td>".$row['Assessment_title']."</td>".
                                 "<td>".$row['assement_date']."</td>".
                                 "<td>".$row['Level']."</td>". 
-                                "<td>"."<input type = 'number' class = 'form-control' min= '0' max = '99'>"."</td>".
+                                "<td>"."<input type = 'number' class = 'form-control' min= '0' max = '99' name = '$weight' id= $i required = ''>"."</td>".
                         "</tr>";
+                        $i = $i + 1;
                       }
                       echo "</tbody>".
                             "</table>".
@@ -206,6 +238,7 @@ require '../php/Php.php';
     <script src="../js/jquery-3.2.1.min.js"></script>
     <script src="../js/popper.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+
     <script src="../js/main.js"></script>
     <!-- The javascript plugin to display page loading on top-->
     <script src="../js/plugins/pace.min.js"></script>
