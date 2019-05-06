@@ -52,7 +52,9 @@ if (isset($_POST['assess']))
 
                       }
 
-                      $sql4 = "SELECT Mark,Total_mark,Overal_mark FROM final_stage_mark where assessment_id = $id AND Project_id = '$Project_id' AND Assessed_by BETWEEN 5 AND 7";
+                      //DO NOT FORGET TO REMOVE LIMIT WHEN DEPLOYING
+
+                      $sql4 = "SELECT Mark,Total_mark,Overal_mark FROM final_stage_mark where assessment_id = $id AND Project_id = '$Project_id' AND Assessed_by BETWEEN 1 AND 7";
                         $result4 = mysqli_query($Conn,$sql4);
                         $Confirm4 = mysqli_num_rows($result4);
                         if($Confirm4 > 0)

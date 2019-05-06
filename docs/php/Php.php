@@ -588,6 +588,8 @@ function average($Staff_id,$stage,$Project_id,$comment)
                 {
                   $SUM = $row['SUM(Item_mark)'];
                 }
+      }else{
+        echo $sql . "<br>" . $Conn->error;
       }
       //percentaging mark allocated to project / total mark NB total % of each single lecturer
       $Total = ($AVG/$SUM)*100;

@@ -64,12 +64,14 @@ if(isset($_POST['Project_id']) && isset($_POST['Stage']) &&isset($_POST['comment
    						 		Staff_id = '$Staff_id'";
    						 		
    	if ($Conn->query($sql) === False){
-   			$_SESSION['message'] = 'Project assessment failed';
-			 #echo "Error: " . $sql ."panapa"."<br>" . $Conn->error;
+   			 $_SESSION['message'] = 'Project assessment failed';
+			 echo "Error: " . $sql ."panapa"."<br>" . $Conn->error;
+			//  header("location: ../pages/assessment.php");
 		}else{
+			echo "panapa hw far";
 			average($Staff_id,$Stage,$Project_id,$mycomment);
 		}
-
+ 
 		//header("location: ../pages/assessment.php");
 		
 }else{
