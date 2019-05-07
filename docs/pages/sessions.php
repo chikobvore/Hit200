@@ -106,7 +106,7 @@ require '../php/Php.php';
           <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
         </ul>
       </div>
-        <?php marks_table(); ?>
+      <?php require '../php/Student_marks.php'; ?>
       </tbody>
     </table>
   </div>

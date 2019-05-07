@@ -85,8 +85,8 @@ $dpt = $_SESSION['Department'];
 	  	 								"<td>".$Name." ".$Surname."</td>".
 	  	 								"<td>".$Assessment_title."</td>";
 	  	 
-	  	 								if ($Assessed_by > 3) {
-	  	 									echo "<td>".$Mark."</td>".
+	  	 								if ($Assessed_by > 4) {
+	  	 									echo "<td>".Round($Overal_mark)."</td>".
 	  	 										 "<td>".$Assessed_by."</td>"."</tr>";
 	  	 								}
 	  	 								else{

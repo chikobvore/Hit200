@@ -112,10 +112,10 @@ if(isset($_POST['weight'.$i]))
             }else{
               $Grade = 'Nullified Marks';
             }
-            $sql = "INSERT INTO final_mark (Project_id,Mark,Grade) VALUES ('$Project_id',$Totalmark,'$Grade')";
+            $sql = "INSERT INTO final_mark (Project_id,Mark,Weight,Assessment_id) VALUES ('$Project_id',$Totalmark,$Weight,$Assessment_id)";
             if($Conn->query($sql) == FALSE)
             {
-              $sql = "UPDATE final_mark SET Mark = $Totalmark,Grade = '$Grade' WHERE Project_id = '$Project_id'";
+              $sql = "UPDATE final_mark SET Mark = $Totalmark,Weight = $Weight WHERE Project_id = '$Project_id'";
               if ($Conn->query($sql) == FALSE) {
                 echo $sql . "<br>" . $Conn->error;
               }

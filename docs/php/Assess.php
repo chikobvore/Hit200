@@ -52,8 +52,9 @@ if(isset($_POST['Project_id']) && isset($_POST['Stage']) &&isset($_POST['comment
 			 echo "Error: " . $sql ."panooooo". "<br>" . $Conn->error;
 		}
 		$i = $i +1;
-   		}
-   	}
+		   }
+		}
+   	
 
    	$sql= "UPDATE assessment_marks 
    						SET 
@@ -78,5 +79,4 @@ if(isset($_POST['Project_id']) && isset($_POST['Stage']) &&isset($_POST['comment
 	#echo "Error: " . $sql ."panapa"."<br>" . $Conn->error;
 	$_SESSION['message'] = 'Project assessment failed.';
 	header('location: ../pages/Assessment.php');
-
 }

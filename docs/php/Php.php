@@ -895,7 +895,7 @@ function marks()
   require '../dbh/dbh.php';
   $Department = $_SESSION['Department'];
 
-  $sql = "SELECT final_mark.Project_id,Assessment_id,Project_title,Level,Overal_mark,Assessed_by FROM final_mark,projects WHERE final_mark.Project_id = projects.Project_id  AND projects.Department = '$Department'";
+  $sql = "SELECT final_stage_mark.Project_id,Assessment_id,Project_title,Level,Overal_mark,Assessed_by FROM final_stage_mark,projects WHERE final_stage_mark.Project_id = projects.Project_id  AND projects.Department = '$Department'";
   $result = mysqli_query($Conn,$sql);
   $confirm = mysqli_num_rows($result);
 
@@ -913,6 +913,9 @@ function marks()
       #echo $Project_id.$Assessment_id.$mark;
 
     }
+
+  }else{
+    echo "Error5: " . $sql . "<br>" . $Conn->error;
   }
 }
 function more_items()
@@ -1362,29 +1365,30 @@ if(isset($_SESSION['Reg_number'])){
   $id = $_SESSION['Staff_id'];
 }
 
-$sql = "SELECT message,Sender FROM messages WHERE thread_id = 3";
-$result = mysqli_query($Conn,$sql);
-$confirm = mysqli_num_rows($result);
-if ($confirm > 0)
-{
-  while ($row = mysqli_fetch_assoc($result))
-    {
-      $sender = $row['Sender'];
-      if ($sender == $id){
-        $message = $row['message'];
-        echo "<div class='message me'>".
-        "<p class='info'>".$message."</p>".
-      "</div>";
-      }else{
-        $message = $row['message'];
-        echo "<div class='message'>".
-        "<p class='info'>".$message."</p>".
-      "</div>";
-      }
+
+// $sql = "SELECT message,Sender FROM messages WHERE thread_id = 3";
+// $result = mysqli_query($Conn,$sql);
+// $confirm = mysqli_num_rows($result);
+// if ($confirm > 0)
+// {
+//   while ($row = mysqli_fetch_assoc($result))
+//     {
+//       $sender = $row['Sender'];
+//       if ($sender == $id){
+//         $message = $row['message'];
+//         echo "<div class='message me'>".
+//         "<p class='info'>".$message."</p>".
+//       "</div>";
+//       }else{
+//         $message = $row['message'];
+//         echo "<div class='message'>".
+//         "<p class='info'>".$message."</p>".
+//       "</div>";
+//       }
     
-    }
+//     }
     
-}
+//}
 }
 function supervision()
 {
@@ -1419,7 +1423,7 @@ function supervision()
                    $row['Contact'];
                  }
                 }else{
-                  echo "ma1: " . $sql . "<br>" . $Conn->error;
+                  echo "Your project have not yet been assigned a supervisor.Please visit your department coordinator";
                 }
 
           }

@@ -184,8 +184,8 @@ require '../php/Php.php';
                                 </div>
                                 <div class="col-md-4">
                                     <select name = 'type' class= form-control>
-                                        <option>Hit 200</option>
-                                        <option>Hit 400</option>
+                                        <option value = "hit200">Hit 200</option>
+                                        <option value = "hit400">Hit 400</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
@@ -217,16 +217,6 @@ require '../php/Php.php';
     <script type="text/javascript" src="../js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="../js/plugins/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript">$('#sampleTable').DataTable();</script>
-    <!-- Google analytics script-->
-    <script type="text/javascript">
-      if(document.location.hostname == 'pratikborsadiya.in') {
-      	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      	ga('create', 'UA-72504830-1', 'auto');
-      	ga('send', 'pageview');
-      }
-    </script>
+ 
   </body>
 </html>

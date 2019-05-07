@@ -114,7 +114,7 @@ if (! isset($_SESSION['Name']))
               echo $_SESSION['message'];
             }else{ echo " ";} ?></center></b></p>
             <div class="tile-body">
-            </div>
+            </div> 
           </div>
           <?php $_SESSION['message'] = ' '; student_modal(); ?>
         </div>
